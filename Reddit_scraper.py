@@ -20,7 +20,7 @@ for post in top_posts:
         filtered_posts.append(post)
 
 data = []
-header = ['Title', 'Content', 'Top Comment', 'date', 'uniquePostID']
+header = ['Title', 'Content', 'Top Comment', 'upvotes', 'date', 'uniquePostID' ]
 
 filtered_posts_5 = filtered_posts[:5]
 
@@ -35,9 +35,9 @@ for post in filtered_posts_5:
             initial_score = comment.score
     top_comment_body = top_comment.body
     if top_comment.body:
-      data.append([title, content, top_comment.body, post.created_utc, post.id])
+      data.append([title, content, top_comment.body, post.score, post.created_utc, post.id])
     else:
-      data.append([title, content, "", post.created_utc, post.id])
+      data.append([title, content, "", post.score, post.created_utc, post.id])
 
 # write the data to a CSV file
 with open('reddit_data.csv', mode='w') as file:
