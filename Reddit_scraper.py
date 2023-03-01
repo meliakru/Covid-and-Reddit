@@ -40,6 +40,7 @@ for post in filtered_posts_5:
     else:
       data.append([subredditName, title, content, "", post.score, len(post.comments), post.created_utc, post.id])
 
+# Date can be converted in readable format from unix datetime using datetime.fromtimestamp(post.created_utc).strftime('%Y-%m-%d %H:%M:%S')
 # write the data to a CSV file
 with open(subredditName+'reddit_data.csv', mode='w') as file:
     writer = csv.writer(file)
