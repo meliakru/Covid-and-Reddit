@@ -5,7 +5,8 @@ reddit = praw.Reddit(client_id='OYjYY_r9i9haQK9wkw-3xw',
                      client_secret='BuYIA0kxVC5HOzSIEBPRnieUPj6Q4g',
                      user_agent='redScrapper') 
 
-subreddit = reddit.subreddit('depression')
+subredditName = 'depression'
+subreddit = reddit.subreddit(subredditName)
 
 # hot_posts_jan_2020 = subreddit.search('timestamp:1577836800..1580515200', sort='hot', limit=5)
 start_timestamp = int(datetime(2020, 1, 1, tzinfo=timezone.utc).timestamp())
@@ -20,7 +21,7 @@ for post in top_posts:
         filtered_posts.append(post)
 
 data = []
-header = ['Title', 'Content', 'Top Comment', 'upvotes', 'date', 'uniquePostID' ]
+header = ['subReddit','Title', 'Content', 'Top Comment', 'upvotes','Number of comments', 'date', 'uniquePostID' ]
 
 filtered_posts_5 = filtered_posts[:5]
 
@@ -35,12 +36,13 @@ for post in filtered_posts_5:
             initial_score = comment.score
     top_comment_body = top_comment.body
     if top_comment.body:
-      data.append([title, content, top_comment.body, post.score, post.created_utc, post.id])
+      data.append([subredditName, title, content, top_comment.body, post.score, len(post.comments),post.created_utc, post.id])
     else:
-      data.append([title, content, "", post.score, post.created_utc, post.id])
+      data.append([subredditName, title, content, "", post.score, len(post.comments), post.created_utc, post.id])
 
 # write the data to a CSV file
-with open('reddit_data.csv', mode='w') as file:
+with open(subredditName+'reddit_data.csv', mode='w') as file:
     writer = csv.writer(file)
     writer.writerow(header)
     writer.writerows(data)
+
