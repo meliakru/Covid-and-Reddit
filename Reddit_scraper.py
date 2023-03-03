@@ -31,9 +31,14 @@ for post in filtered_posts_5:
     top_comment = post.comments[0]
     initial_score = post.comments[0].score
     for comment in post.comments:
-      if comment.score > initial_score:
-            top_comment = comment 
-            initial_score = comment.score
+    # enclosing below if in try catch block, because of AttributeError: 'MoreComments' object has no attribute 'score'. I think that means comments are deleted
+      try:
+        if comment.score > initial_score:
+              top_comment = comment 
+              initial_score = comment.score
+      except AttributeError:
+        print("AttributeError: 'MoreComments' object has no attribute 'score'")
+            
     top_comment_body = top_comment.body
     if top_comment.body:
       data.append([subredditName, title, content, top_comment.body, post.score, len(post.comments),post.created_utc, post.id])
