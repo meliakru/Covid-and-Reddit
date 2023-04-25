@@ -10,7 +10,7 @@ import re
 figure, axs = plt.subplots(nrows=3, ncols=1, figsize=(10,10))
 figure.suptitle('Rank-Frequency of Top 10 words from Post-Covid period Covid-Related Posts')
 
-# NOTE: assumes that the file being read is in subfolder
+# note: assumes that the file being read is in subfolder
 def generateRankFrequancy(period:str, filename:str, ax:plt.Axes):
     # Load the Reddit API post data from the .csv file
     folder = 'preCovid/datasets' if period == 'before' else 'duringCovid/datasets' if period =='during' else 'postCovid/datasets'
@@ -68,6 +68,10 @@ def generateRankFrequancy(period:str, filename:str, ax:plt.Axes):
     ax.set_title(title)
     ax.scatter(range(1, len(top_10_words)+1), top_10_frequencies)
 
+#input args: 
+#period: "before", "during" or "after"
+#filename: the name of the file in the subfolder
+#can be changed as needed to calculate for different periods
 generateRankFrequancy("after", 'Anxietyreddit_data.csv', axs[0])
 generateRankFrequancy("after", 'depressionreddit_data.csv',axs[1])
 generateRankFrequancy("after", 'mentalhealthreddit_data.csv', axs[2])
